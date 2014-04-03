@@ -22,14 +22,24 @@ get '/player' do
 	client.account.messages.create(to: "+447988799279", from: "+441274271478", body: "the contents of your message")
 end 
 
+get '/player_say' do 
+	client.account.calls.create(to: "+447988799279", from: "+441274271478", url: "https://74095107.ngrok.com/player_say")
+end
+
 post '/player' do 
 	recent_tune = what_played
 	content_type 'text/xml'
 	"<Response>
-		<Message>You are listening to #{recent_tune[:track]} by #{recent_tune[:artist]} </Message>
+		<Message>You listened to #{recent_tune[:track]} by #{recent_tune[:artist]} </Message>
 	 </Response>"
 end 
 
-
+post '/player_say' do 
+	recent_tune = what_played
+	content_type 'text/xml'
+	"<Response>
+		<Say>You listened to #{recent_tune[:track]} by #{recent_tune[:artist]} </Say>
+	 </Response>"
+end 
 
 
